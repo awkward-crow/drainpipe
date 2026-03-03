@@ -3,20 +3,26 @@
 ## latest
 
  - bin/norse.rs, persistent tables style using polars
- - clippy!
  - bin/things.rs
  - continuation passing is doomed
- - bin/infinite_mirror.rs
 
 ## next steps
 
- - language server
-
+ - pass file name on command line
  - duckdb, postgres
  - web or http api, rocket?
 
- - bin/the_one.rs - difficult?
  - tidy up pipeline ??
+
+## usage
+
+Try,
+
+```sh
+cargo run --bin drainpipe
+```
+
+or replace `drainpipe` with e.g. `norse`.
 
 ## todo
 
@@ -39,9 +45,13 @@ the keys and values in the map become `&_`. is this right?
 
 Or, is it to do with `.into_iter()`?
 
-## continuation passing i.e. style 'kick-forward'
+## style 'kick-forward' i.e. continuation passing
 
 the signature of the continuation must (?) reach all the way to the end of the computation!? this is not practical!!
+
+## style 'the one' or 'monadic identity'
+
+this proved too difficult, rust is not that flexible -- revisit?
 
 ## style 'golf'
 
