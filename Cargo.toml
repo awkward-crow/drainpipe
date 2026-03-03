@@ -8,3 +8,7 @@ edition = "2021"
 [dependencies]
 polars = { version = "0.46.0", features = ["lazy", "rows"] }
 regex = "1.11.1"
+
+[profile.dev]
+  opt-level = 0
+  debug = 0  # skip debug info, saves significant space
