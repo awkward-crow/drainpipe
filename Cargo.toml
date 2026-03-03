@@ -1,14 +1,11 @@
-[package]
-name = "drainpipe"
-version = "0.1.0"
-edition = "2021"
+[workspace]
+members = ["drainpipe", "golf", "infinite_mirror", "norse", "pipeline", "things"]
+resolver = "2"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
-polars = { version = "0.46.0", features = ["lazy", "rows"] }
+[workspace.dependencies]
 regex = "1.11.1"
+polars = { version = "0.46.0", features = ["lazy", "rows"] }
 
 [profile.dev]
-  opt-level = 0
-  debug = 0  # skip debug info, saves significant space
+opt-level = 0
+debug = 0  # skip debug info, saves significant space

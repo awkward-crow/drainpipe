@@ -2,9 +2,9 @@
 
 ## latest
 
+ - restructure as a cargo workspace (?) 
  - bin/norse.rs, persistent tables style using polars
  - bin/things.rs
- - continuation passing is doomed
 
 ## next steps
 
@@ -19,10 +19,42 @@
 Try,
 
 ```sh
-cargo run --bin drainpipe
+cargo run -p drainpipe -- pride-and-prejudice.txt
 ```
 
-or replace `drainpipe` with e.g. `norse`.
+or replace `drainpipe` with e.g. `pipeline`.
+
+To build an executable,
+
+```sh
+cargo build -p drainpipe
+```
+
+followed by
+
+```sh
+./target/debug/drainpipe pride-and-prejudice.txt 
+```
+
+For a release build, try
+
+```sh
+cargo build -p drainpipe --release
+```
+
+## performance
+
+```sh
+hyperfine --warmup=2 "./target/release/drainpipe pride-and-prejudice.txt "
+```
+=>
+    Benchmark 1: ./target/release/drainpipe pride-and-prejudice.txt 
+      Time (mean ± σ):      18.1 ms ±   0.6 ms    [User: 17.3 ms, System: 0.9 ms]
+      Range (min … max):    17.2 ms …  20.7 ms    149 runs
+
+## restructure as a cargo workspace
+
+Introduce a separate directory and a separate `Cargo.toml` for each style. This keeps polars out of the way of all but `norse` so it does not get compiled (along with near endless dependencies) when other targets are built. This saves approx. 3.6GiB of disk space!
 
 ## todo
 

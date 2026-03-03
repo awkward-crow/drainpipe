@@ -1,6 +1,6 @@
 // main.rs
 
-use std::{collections::HashMap, fs, fs::File, io::Read};
+use std::{collections::HashMap, env, fs, fs::File, io::Read};
 
 use regex::Regex;
 
@@ -13,7 +13,7 @@ fn main() {
     ];
     stop_words.extend(ascii);
 
-    let filename = "pride-and-prejudice.txt";
+    let filename = env::args().nth(1).expect("usage: drainpipe <filename>");
     let mut data = String::new();
     {
         let mut file = File::open(filename).unwrap();
