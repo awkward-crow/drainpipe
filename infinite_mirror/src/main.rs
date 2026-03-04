@@ -1,7 +1,7 @@
 // infinite_mirror.rs
 
 use regex::Regex;
-use std::{cmp::min, collections::HashMap, fs};
+use std::{cmp::min, collections::HashMap, env, fs};
 
 fn count(words: &[String], stop_words: &Vec<String>, counts: &mut HashMap<String, i32>) {
     if !words.is_empty() {
@@ -25,8 +25,9 @@ fn main() {
     let s = fs::read_to_string("./stop_words.txt").expect("can't find stop_words.txt");
     let stop_words: Vec<_> = s.split(",").map(str::to_string).collect();
 
-    let data = fs::read_to_string("./pride-and-prejudice.txt")
-        .expect("can't find p&p?")
+    let filename = env::args().nth(1).expect("usage: infinite_mirror <filename>");
+    let data = fs::read_to_string(filename)
+        .expect("can't read file")
         .to_lowercase();
     let re = Regex::new(r"[a-z]{2,}").unwrap();
     let words: Vec<_> = re

@@ -10,14 +10,15 @@
 //     print(w, '-', c)
 
 use regex::Regex;
-use std::{collections::HashMap, fs}; //, fs::File, io::Read, collections::HashMap};
+use std::{collections::HashMap, env, fs};
 
 fn main() {
     let s = fs::read_to_string("./stop_words.txt").expect("this should be ok");
     let stop_words = s.split(",").collect::<Vec<&str>>();
 
-    let data = fs::read_to_string("./pride-and-prejudice.txt")
-        .expect("can't find p&p?")
+    let filename = env::args().nth(1).expect("usage: golf <filename>");
+    let data = fs::read_to_string(filename)
+        .expect("can't read file")
         .to_lowercase();
 
     let re = Regex::new(r"[a-z]{2,}").unwrap();

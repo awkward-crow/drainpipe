@@ -1,7 +1,7 @@
 // pipeline.rs
 
 use regex::Regex;
-use std::{collections::HashMap, fs::File, io::Read};
+use std::{collections::HashMap, env, fs::File, io::Read};
 
 fn read_file(filename: &str) -> String {
     let mut data = String::new();
@@ -50,9 +50,9 @@ fn sort(counts: HashMap<String, i32>) -> Vec<(String, i32)> {
 }
 
 fn main() {
-    let filename = "pride-and-prejudice.txt";
+    let filename = env::args().nth(1).expect("usage: pipeline <filename>");
     let z = sort(counts(remove_stop_words(scan(
-        &filter_chars_and_normalize(read_file(filename)),
+        &filter_chars_and_normalize(read_file(&filename)),
     ))));
 
     for (k, n) in &z[0..25] {
