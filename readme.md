@@ -42,6 +42,10 @@ For a release build, try
 cargo build -p drainpipe --release
 ```
 
+## dir. `drainpipe`
+
+This package has some optimisations, a hash set for the stop words and an explicit check for chars in place of a regex. The timing on pride-and-prejudice.txt came down from approx. 17ms to about 7ms.
+
 ## performance
 
 ```sh
@@ -49,8 +53,8 @@ hyperfine --warmup=2 "./target/release/drainpipe pride-and-prejudice.txt "
 ```
 =>
     Benchmark 1: ./target/release/drainpipe pride-and-prejudice.txt 
-      Time (mean ± σ):      18.1 ms ±   0.6 ms    [User: 17.3 ms, System: 0.9 ms]
-      Range (min … max):    17.2 ms …  20.7 ms    149 runs
+      Time (mean ± σ):       7.1 ms ±   0.9 ms    [User: 7.0 ms, System: 0.4 ms]
+      Range (min … max):     6.2 ms …  14.6 ms    348 runs
 
 ## restructure as a cargo workspace
 
