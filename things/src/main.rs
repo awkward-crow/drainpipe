@@ -1,7 +1,7 @@
 // things.rs
 
 use regex::Regex;
-use std::{collections::HashMap, fs::File, io::Read};
+use std::{collections::HashMap, env, fs::File, io::Read};
 
 struct DataStorageManager {
     data: String,
@@ -11,7 +11,7 @@ impl DataStorageManager {
     fn new(filename: &str) -> Self {
         let mut data = String::new();
         {
-            let mut file = File::open(filename).unwrap();
+            let mut file = File::open(filename).unwrap_or_else(|e| panic!("can't read {filename}: {e}"));
             file.read_to_string(&mut data).unwrap();
         }
         let re = Regex::new(r"[\W_]+").unwrap();
@@ -120,8 +120,8 @@ impl WordFrequencyController {
 }
 
 fn main() {
-    let filename = "pride-and-prejudice.txt";
-    let mut controller = WordFrequencyController::new(filename);
+    let filename = env::args().nth(1).expect("usage: things <filename>");
+    let mut controller = WordFrequencyController::new(&filename);
 
     controller.run();
 }

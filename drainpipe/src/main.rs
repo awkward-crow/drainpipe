@@ -14,7 +14,7 @@ fn main() {
     let filename = env::args().nth(1).expect("usage: drainpipe <filename>");
     let mut data = String::new();
     {
-        let mut file = File::open(filename).unwrap();
+        let mut file = File::open(&filename).unwrap_or_else(|e| panic!("can't read {filename}: {e}"));
         file.read_to_string(&mut data).unwrap();
     }
 

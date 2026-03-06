@@ -6,7 +6,7 @@ use std::{collections::HashMap, env, fs::File, io::Read};
 fn read_file(filename: &str) -> String {
     let mut data = String::new();
     {
-        let mut file = File::open(filename).unwrap();
+        let mut file = File::open(filename).unwrap_or_else(|e| panic!("can't read {filename}: {e}"));
         file.read_to_string(&mut data).unwrap();
     }
     data

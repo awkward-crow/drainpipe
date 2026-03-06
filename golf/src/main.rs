@@ -17,8 +17,8 @@ fn main() {
     let stop_words = s.split(",").collect::<Vec<&str>>();
 
     let filename = env::args().nth(1).expect("usage: golf <filename>");
-    let data = fs::read_to_string(filename)
-        .expect("can't read file")
+    let data = fs::read_to_string(&filename)
+        .unwrap_or_else(|e| panic!("can't read {filename}: {e}"))
         .to_lowercase();
 
     let re = Regex::new(r"[a-z]{2,}").unwrap();
