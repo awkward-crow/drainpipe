@@ -1,7 +1,7 @@
 // things.rs
 
 use regex::Regex;
-use std::{collections::HashMap, env, fs::File, io::Read};
+use std::{collections::{HashMap, HashSet}, env, fs::File, io::Read};
 
 struct DataStorageManager {
     data: String,
@@ -28,7 +28,7 @@ impl DataStorageManager {
 }
 
 struct StopWordManager {
-    stop_words: Vec<String>,
+    stop_words: HashSet<String>,
 }
 
 impl StopWordManager {
@@ -38,14 +38,14 @@ impl StopWordManager {
             let mut file = File::open("./stop_words.txt").unwrap();
             file.read_to_string(&mut s).unwrap();
         }
-        let mut t: Vec<_> = s.split(",").map(str::to_string).collect();
+        let mut t: HashSet<_> = s.split(",").map(str::to_string).collect();
         for c in 'a'..='z' {
-            t.push(c.to_string());
+            t.insert(c.to_string());
         }
         StopWordManager { stop_words: t }
     }
 
-    fn is_stop_word(&self, w: &String) -> bool {
+    fn is_stop_word(&self, w: &str) -> bool {
         self.stop_words.contains(w)
     }
 
