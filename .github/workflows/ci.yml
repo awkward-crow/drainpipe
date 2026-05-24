@@ -1,0 +1,35 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: pipeline
+        run: cargo run -p pipeline -- pride-and-prejudice.txt
+
+      - name: things
+        run: cargo run -p things -- pride-and-prejudice.txt
+
+      - name: golf
+        run: cargo run -p golf -- pride-and-prejudice.txt
+
+      - name: infinite_mirror
+        run: cargo run -p infinite_mirror -- pride-and-prejudice.txt
+
+      - name: norse
+        run: cargo run -p norse -- pride-and-prejudice.txt
+
+      - name: drainpipe
+        run: cargo run -p drainpipe -- pride-and-prejudice.txt
